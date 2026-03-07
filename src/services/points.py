@@ -1,6 +1,9 @@
+import json
+
 from sqlalchemy import select
 
 from src.db.postgres import get_session_for_cli
+from src.decorators import file_path_required
 from src.models.points import Point
 from src.schemas.point import PointSchema
 from src.services.abstract import FigureService
@@ -40,11 +43,42 @@ class PointService(FigureService):
             query = select(Point)
             points = db.execute(query).scalars().all()
             schemas = [PointSchema.from_orm(point) for point in points]
-            coordinates = [{"id": p.id, "x": p.x, "y": p.y} for p in schemas]
             for s in schemas:
                 print(f"""
                 id - {s.id}
                 координаты - x = {s.x}, y = {s.y}
                 _________________
                 """)
+
+    def return_coordinates(self):
+        """Возвращает все точки в формате для дальнейшей записи"""
+        with get_session_for_cli() as db:
+            query = select(Point)
+            points = db.execute(query).scalars().all()
+            schemas = [PointSchema.from_orm(point) for point in points]
+            coordinates = [{"id": p.id, "x": p.x, "y": p.y} for p in schemas]
             return coordinates
+
+    @file_path_required()
+    def save_to_json(self, path: str, name_figure: str):
+        """Записывает все фигуры в json файл"""
+        data = self.return_coordinates()
+        with open(path, "w", encoding="UTF-8") as file:
+            json.dump(data, file, ensure_ascii=False)
+            print("Данные успешно записаны.")
+
+    def load_from_json(self, path: str):
+        """Получает все фигуры из json файла"""
+        try:
+            with open(path, "r", encoding="UTF-8") as file:
+                data = json.load(file)
+                points = [PointSchema.model_validate(point) for point in data]
+                for p in points:
+                    print(f"""
+                    id - {p.id}
+                    координаты - x = {p.x}, y = {p.y}
+                    _________________
+                    """)
+                return points
+        except FileNotFoundError:
+            print(f"Файл {path} не найден.")
