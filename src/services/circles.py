@@ -77,6 +77,7 @@ class CircleService(FigureService):
             with open(path, "r", encoding="UTF-8") as file:
                 data = json.load(file)
                 circles = [CircleSchema.model_validate(circle) for circle in data]
+                print("Данные кругов из файла:")
                 for c in circles:
                     print(f"""
                                         id - {c.id}

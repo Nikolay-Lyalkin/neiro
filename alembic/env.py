@@ -4,11 +4,12 @@ from sqlalchemy import engine_from_config, pool
 
 from alembic import context
 from src.models.circles import Circle
-from src.models.lines import Line
-from src.models.points import Base, Point
-from src.models.squares import Square
 from src.models.file_paths import FilePath
+from src.models.lines import Line
 from src.models.ovals import Oval
+from src.models.points import Base, Point
+from src.models.rectangles import Rect
+from src.models.squares import Square
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

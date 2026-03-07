@@ -9,5 +9,5 @@ class Oval(Base):
     id = Column(Integer, primary_key=True)
     x_center = Column(Integer, nullable=False)
     y_center = Column(Integer, nullable=False)
-    radius_x = Column(Integer, nullable=False)
-    radius_y = Column(Integer, nullable=False)
+    x_radius = Column(Integer, nullable=False)
+    y_radius = Column(Integer, nullable=False)

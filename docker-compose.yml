@@ -17,9 +17,9 @@ services:
         condition: service_healthy
     env_file:
       - .env
-    stdin_open: true   # держим STDIN открытым
-    tty: true          # выделяем TTY
-    command: tail -f /dev/null  # бесконечная команда, чтобы контейнер не завершался
+    stdin_open: true
+    tty: true
+    command: tail -f /dev/null
 
   db:
     image: postgres:16

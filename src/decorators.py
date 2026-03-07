@@ -20,8 +20,8 @@ def file_path_required():
                 if figure:
                     if figure.name_figure != name_figure:
                         print(
-                            f"Ошибка! Вы пытаетесь добавить в файл фигуру - {name_figure}, но там уже сохранена фигура "
-                            f"- {figure.name_figure}"
+                            f"Ошибка! Вы пытаетесь добавить в файл фигуру - {name_figure}, но там уже сохранена "
+                            f"фигура - {figure.name_figure}"
                         )
                         return None
                     elif figure.name_figure == name_figure:

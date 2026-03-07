@@ -34,7 +34,7 @@ class OvalService(FigureService):
             print(f"""
             Вы создали квадрат!
             центр овала - x = {oval.x_center}, y = {oval.y_center}
-            радиус по оси - x = {oval.x_center}, y = {oval.radius_y}
+            радиус по оси - x = {oval.x_center}, y = {oval.y_radius}
             """)
             return oval
 
@@ -45,11 +45,11 @@ class OvalService(FigureService):
             if oval:
                 db.delete(oval)
                 db.commit()
-                print(f"Квадрат с id - {id_oval} удален")
-                return {"message": f"Квадрат с id - {id_oval} удален"}
+                print(f"Овал с id - {id_oval} удален")
+                return {"message": f"Овал с id - {id_oval} удален"}
             else:
-                print(f"Квадрат с id - {id_oval} не найден")
-                return {"error": f"Квадрат с id - {id_oval} не найден"}
+                print(f"Овал с id - {id_oval} не найден")
+                return {"error": f"Овал с id - {id_oval} не найден"}
 
     def show_figures(self):
         """Показать все овалы"""
@@ -61,7 +61,7 @@ class OvalService(FigureService):
                 print(f"""
             id - {s.id}
             центр овала - x = {s.x_center}, y = {s.y_center}
-            радиус по оси - x = {s.x_center}, y = {s.radius_y}
+            радиус по оси - x = {s.x_radius}, y = {s.y_radius}
             _________________
             """)
 
@@ -97,11 +97,12 @@ class OvalService(FigureService):
             with open(path, "r", encoding="UTF-8") as file:
                 data = json.load(file)
                 ovals = [OvalSchema.model_validate(oval) for oval in data]
+                print("Данные овалов из файла:")
                 for o in ovals:
                     print(f"""
                                 id - {o.id}
                                 центр овала - x = {o.x_center}, y = {o.y_center}
-                                радиус по оси - x = {o.x_center}, y = {o.radius_y}
+                                радиус по оси - x = {o.x_radius}, y = {o.y_radius}
                                 _________________
                                 """)
         except FileNotFoundError:

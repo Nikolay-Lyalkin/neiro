@@ -5,8 +5,8 @@ class Settings(BaseSettings):
     # PostgreSQL
     postgres_db: str = "neiro"
     postgres_user: str = "postgres"
-    postgres_password: str = "9998441653Qq"
-    database_host: str = "localhost"
+    postgres_password: str = "password"
+    database_host: str = "db"
     database_port: int = 5432
 
 

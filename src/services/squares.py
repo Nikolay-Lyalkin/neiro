@@ -102,6 +102,7 @@ class SquareService(FigureService):
             with open(path, "r", encoding="UTF-8") as file:
                 data = json.load(file)
                 squares = [SquareSchema.model_validate(square) for square in data]
+                print("Данные квадратов из файла:")
                 for s in squares:
                     print(f"""
                                 id - {s.id}

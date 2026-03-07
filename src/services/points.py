@@ -73,6 +73,7 @@ class PointService(FigureService):
             with open(path, "r", encoding="UTF-8") as file:
                 data = json.load(file)
                 points = [PointSchema.model_validate(point) for point in data]
+                print("Данные точек из файла:")
                 for p in points:
                     print(f"""
                     id - {p.id}

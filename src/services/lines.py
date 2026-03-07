@@ -93,6 +93,7 @@ class LineService(FigureService):
             with open(path, "r", encoding="UTF-8") as file:
                 data = json.load(file)
                 lines = [LineSchema.model_validate(line) for line in data]
+                print("Данные линий из файла:")
                 for l in lines:
                     print(f"""
                                 id - {l.id}

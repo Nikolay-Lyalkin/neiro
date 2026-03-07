@@ -1,15 +1,15 @@
-from src.services.ovals import OvalService
+from src.services.rectangles import RectService
 
 
-def menu_oval():
-    oval = OvalService()
+def menu_rect():
+    rect = RectService()
     while True:
-        print("""Выберите действие, которое хотите совершить с фигурой овал:
-                    1. Создать
-                    2. Посмотреть все фигуры
-                    3. Удалить
-                    4. Работа с файлами
-                    5. Назад""")
+        print("""Выберите действие, которое хотите совершить с фигурой прямоугольник:
+        1. Создать
+        2. Посмотреть все фигуры
+        3. Удалить
+        4. Работа с файлами
+        5. Назад""")
 
         while True:
             try:
@@ -25,19 +25,25 @@ def menu_oval():
         if action == 1:
             while True:
                 try:
-                    x_center = int(input("Введите координату Х центра овала: "))
-                    y_center = int(input("Введите координату Y центра овала: "))
-                    x_radius = int(input("Введите  координату Х радиуса овала: "))
-                    y_radius = int(input("Введите  координату Y радиуса овала: "))
-                    oval.create(x_center, y_center, x_radius, y_radius)
+                    x_left_up = int(input("Введите координату Х левого верхнего угла: "))
+                    y_left_up = int(input("Введите координату Y левого верхнего угла: "))
+                    x_right_down = int(input("Введите координату Х правого нижнего угла: "))
+                    y_right_down = int(input("Введите координату Y правого нижнего угла: "))
+                    rect.create(
+                        x_left_up,
+                        y_left_up,
+                        x_right_down,
+                        y_right_down,
+                    )
                     break
                 except ValueError:
                     print(
-                        "Ошибка! X и Y центра овала должны быть целыми числами,"
-                        "X и Y радиуса овала должны быть целыми положительными числами."
+                        "Ошибка! X и Y должны быть целыми числами, X левого верхнего угла не может быть больше "
+                        "X правого нижнего угла, а Y левого верхнего угла не может быть меньше "
+                        "Y правого нижнего угла."
                     )
         elif action == 2:
-            oval.show_figures()
+            rect.show_figures()
         elif action == 3:
             while True:
                 try:
@@ -45,7 +51,7 @@ def menu_oval():
                     break
                 except ValueError:
                     print("Ошибка! ID должен быть целыми числом.")
-            oval.delete(id_figure)
+            rect.delete(id_figure)
         elif action == 4:
             print("""
             Выберите варианты работы с файлами:
@@ -64,9 +70,9 @@ def menu_oval():
                     continue
             if action_with_file == 1:
                 path = input("Введите наименование файла, в который хотите сохранить данные: ")
-                oval.save_to_json(path=path, name_figure="овал")
+                rect.save_to_json(path=path, name_figure="прямоугольник")
             elif action_with_file == 2:
                 path = input("Введите путь к файлу из которого хотите загрузить данные: ")
-                oval.load_from_json(path)
+                rect.load_from_json(path)
         elif action == 5:
             break

@@ -1,15 +1,15 @@
-from src.services.ovals import OvalService
+from src.services.points import PointService
 
 
-def menu_oval():
-    oval = OvalService()
+def menu_point():
+    point = PointService()
     while True:
-        print("""Выберите действие, которое хотите совершить с фигурой овал:
-                    1. Создать
-                    2. Посмотреть все фигуры
-                    3. Удалить
-                    4. Работа с файлами
-                    5. Назад""")
+        print("""Выберите действие, которое хотите совершить с фигурой точка:
+                                1. Создать
+                                2. Посмотреть все фигуры
+                                3. Удалить
+                                4. Работа с файлами
+                                5. Назад""")
 
         while True:
             try:
@@ -25,19 +25,14 @@ def menu_oval():
         if action == 1:
             while True:
                 try:
-                    x_center = int(input("Введите координату Х центра овала: "))
-                    y_center = int(input("Введите координату Y центра овала: "))
-                    x_radius = int(input("Введите  координату Х радиуса овала: "))
-                    y_radius = int(input("Введите  координату Y радиуса овала: "))
-                    oval.create(x_center, y_center, x_radius, y_radius)
+                    x = int(input("Введите координату Х: "))
+                    y = int(input("Введите координату Y: "))
                     break
                 except ValueError:
-                    print(
-                        "Ошибка! X и Y центра овала должны быть целыми числами,"
-                        "X и Y радиуса овала должны быть целыми положительными числами."
-                    )
+                    print("Ошибка! X и Y должны быть целыми числами.")
+            point.create(x, y)
         elif action == 2:
-            oval.show_figures()
+            point.show_figures()
         elif action == 3:
             while True:
                 try:
@@ -45,13 +40,13 @@ def menu_oval():
                     break
                 except ValueError:
                     print("Ошибка! ID должен быть целыми числом.")
-            oval.delete(id_figure)
+            point.delete(id_figure)
         elif action == 4:
             print("""
-            Выберите варианты работы с файлами:
-            1. Сохранить все фигуры в файл
-            2. Загрузить все фигуры из файла
-            """)
+                        Выберите варианты работы с файлами:
+                        1. Сохранить все фигуры в файл
+                        2. Загрузить все фигуры из файла
+                        """)
             while True:
                 action_with_file = int(input("Выберите действие: "))
                 if action_with_file in [
@@ -64,9 +59,9 @@ def menu_oval():
                     continue
             if action_with_file == 1:
                 path = input("Введите наименование файла, в который хотите сохранить данные: ")
-                oval.save_to_json(path=path, name_figure="овал")
+                point.save_to_json(path=path, name_figure="точка")
             elif action_with_file == 2:
                 path = input("Введите путь к файлу из которого хотите загрузить данные: ")
-                oval.load_from_json(path)
+                point.load_from_json(path)
         elif action == 5:
             break
